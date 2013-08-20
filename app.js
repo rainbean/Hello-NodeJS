@@ -42,6 +42,7 @@ fs.exists("views/movies.html", function (exists) {
 
 app.get('/', routes.index);
 app.get('/users', user.list);
+app.get('/user/:office?/:name', user.read);
 app.get('/movies', movie.list);
 
 http.createServer(app).listen(app.get('port'), function(){
