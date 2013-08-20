@@ -40,10 +40,26 @@ fs.exists("views/movies.html", function (exists) {
   }
 });
 
+// check if user database generated
+fs.exists("movies/users.dat", function (exists) {
+  if (!exists) {
+    fs.writeFile("movies/users.dat", "");
+  }
+});
+
+// check if user-rating database generated
+fs.exists("movies/ratings.dat", function (exists) {
+  if (!exists) {
+    fs.writeFile("movies/ratings.dat", "");
+  }
+});
+
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/user/:office?/:name', user.read);
 app.get('/movies', movie.list);
+app.get('/movies/:name', movie.getRate);
+app.post('/movies/:name', movie.setRate);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

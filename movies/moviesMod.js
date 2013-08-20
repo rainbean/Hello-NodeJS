@@ -13,13 +13,14 @@ exports.run = function() {
   // write header
   fout.on('open', function(fd) {
     fout.write("<!DOCTYPE html><html><head><title></title><link rel='stylesheet' href='/stylesheets/style.css'><link rel='stylesheet' href='/stylesheets/table.css'></head>");
-    fout.write("<body><h1>Movies Database</h1><hr><table><thead><tr><th>Name</th><th>Genre</th></tr></thead><tbody>");
+    fout.write("<body><h1>Movies Database</h1><hr><table><thead><tr><th>ID</th><th>Name</th><th>Genre</th></tr></thead><tbody>");
   });
 
   lineReader.eachLine("movies/movies.dat", function(line, last) {
     var arr = line.split("::");
     fout.write("<tr>");
-    fout.write("<td>" + arr[1]);
+    fout.write("<td>" + arr[0]);
+    fout.write("<td><a href='http://movielens.umn.edu/movieDetail?movieId=" + arr[0] + "'>" + arr[1] + "</a>");
     fout.write("<td>" + arr[2]);
     if (last)
     {
