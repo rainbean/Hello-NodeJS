@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= title
+  hr
+  table
+    thead
+      tr
+        th Name
+        th Office
+    tbody
+      for user in users
+        tr
+          td= user.name
+          td= user.office
