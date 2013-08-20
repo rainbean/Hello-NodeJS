@@ -11,8 +11,8 @@ Install Node.JS
 ----------------
 Install & Run project
 ----------------
-1. git clone https://github.com/rainbean/Hello-NodeJS.git <local-folder-name>
-2. cd <local-folder-name>
+1. git clone https://github.com/rainbean/Hello-NodeJS.git local-folder-name
+2. cd local-folder-name
 3. npm install
 4. sudo node app
 
