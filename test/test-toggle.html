@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" 
+    "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+<title>untitled</title>
+<style type="text/css">
+
+#foo {
+	position: absolute;
+	z-index: 99;
+	left: 120px;
+	top: 60px;
+}
+tr {
+	background: skyblue;
+}
+td {
+	font-size: smaller;
+	padding: 2px;
+	border: 3px #000 double;
+}
+a:link, a:visited, a:hover, a:active {
+	position: absolute;
+	left: 10px;
+	top: 70px;
+	font: normal 11px verdana;
+	color: darkred;
+	text-decoration: none;
+}
+a:hover {
+	padding-left: 3px;
+}
+
+</style>
+<script type="text/javascript">
+
+/* call onload with table id(s) */
+function TR_set_toggle()
+{
+	/* toggleRow method */
+	var toggleRow = function()
+	{
+		this.style.display = ((this.style.display == '') ? 'none' : '');
+		return false;
+	}
+
+	for (var oTable, a = 0; a < arguments.length; ++a)
+	{
+		oTable = document.getElementById(arguments[a]);
+     		var r = 0, row, rows = oTable.rows;
+     		while (row = rows.item(r++))
+			row.toggle = toggleRow;
+	}
+
+	/* convenience function */
+	self.toggleRow = function(row_id)
+	{
+		document.getElementById(row_id).toggle();
+	}
+}
+
+onload = function()
+{
+	TR_set_toggle('foo');
+}
+
+</script>
+</head>
+<body>
+<table id="foo">
+<tbody>
+<tr id="foo1">
+<td>row 1 row 1 row 1 row 1 row 1</td>
+<td>row 1 row 1 row 1 row 1 row 1</td>
+<td>row 1 row 1 row 1 row 1 row 1</td>
+<td>row 1 row 1 row 1 row 1 row 1</td>
+</tr>
+<tr id="foo2">
+<td>row 2 row 2 row 2 row 2 row 2</td>
+<td>row 2 row 2 row 2 row 2 row 2</td>
+<td>row 2 row 2 row 2 row 2 row 2</td>
+<td>row 2 row 2 row 2 row 2 row 2</td>
+</tr>
+<tr id="foo3">
+<td>row 3 row 3 row 3 row 3 row 3</td>
+<td>row 3 row 3 row 3 row 3 row 3</td>
+<td>row 3 row 3 row 3 row 3 row 3</td>
+<td>row 3 row 3 row 3 row 3 row 3</td>
+</tr>
+</tbody>
+</table>
+<a href="#null" onclick="toggleRow('foo1')">toggle row 1</a>
+<a href="#null" style="top:95px;" onclick="toggleRow('foo2')">toggle row 2</a>
+<a href="#null" style="top:120px;" onclick="toggleRow('foo3')">toggle row 3</a>
+</body>
+</html>

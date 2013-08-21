@@ -7,6 +7,13 @@ exports.list = function(req, res){
 };
 
 /*
+ * GET test page.
+ */
+exports.test = function(req, res){
+  res.render('test');
+};
+
+/*
  * GET user's rating in JSON format
  */
 exports.getRate = function(req, res){
@@ -70,28 +77,28 @@ exports.setRate = function(req, res) {
       fs.appendFile("movies/users.dat", user.id + "::" + user.name + "\n");
     }
 
-    user.rating.forEach(function (rate) {
-      fs.appendFile("movies/ratings.dat", 
-          user.id + "::" + rate.id + "::" + rate.rate + "\n");
-    });
+	// update movie rating database
+	lineReader.eachLine("movies/ratings.dat", function(line, last) {
+		var arr = line.split("::");
+		if (arr[0] != user.id) {
+		  // remove user's existing ratings from database
+		  fs.appendFile("movies/ratings-tmp.dat", line + "\n");
+		}
+	  }).then(function () {
+		// add user's existing ratings to database
+		user.rating.forEach(function (rate) {
+		  fs.appendFile("movies/ratings-tmp.dat", 
+			  user.id + "::" + rate.id + "::" + rate.rate + "\n");
+		});
+		// overwrite database
+		fs.unlink("movies/ratings.dat", function (err) {
+		  if (err) throw err;
+		  fs.rename("movies/ratings-tmp.dat", "movies/ratings.dat");
+		});
 
-    res.send(user);
+		// reply updated user data
+		res.send(user);
+	});
   });
-
-/*
-    // update user's rating result
-    lineReader.eachLine("movies/ratings.dat", function(line) {
-      var arr = line.split("::");
-      if (arr[0] == user.id) {
-        // a rated movies found
-        rates.push({id: arr[1], rate: arr[2]});
-      }
-    }).then(function () {
-      // send out user data as json
-      user.rating = rates;
-      res.send(user);
-    });
-*/
-
 }
 

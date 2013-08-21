@@ -1,0 +1,115 @@
+<!DOCTYPE html><html><head><title></title>
+<link rel='stylesheet' href='../public/stylesheets/style.css'>
+<link rel='stylesheet' href='../public/stylesheets/table.css'>
+<link rel='stylesheet' href='button.css'>
+<link rel='stylesheet' href='rating.css'>
+<script type='application/javascript' src='../public/javascripts/movies.js' ></script>
+</head>
+<body><h1>Movies Database</h1><hr>
+<div class="buttonwrapper" onClick="return false">
+<a class="squarebutton" href="#" onClick="TR_toggle_all()"><span>All Items</span></a> 
+<a class="squarebutton green" href="#" style="margin-left: 10px" onClick="TR_toggle_rates()"><span>Rated Item(s)</span></a> 
+<a class="squarebutton orange" href="#" style="margin-left: 10px" onClick="TR_toggle_recommendation()"><span>Recommendation(s)</span></a> 
+</div>
+
+
+
+<table><thead><tr><th>ID</th><th>Name</th><th>Genre</th><th>Rating</th></tr></thead>
+        <tbody id=mid>
+            <tr id=mid1>
+                <td>1</td>
+                <td>aaa</td>
+                <td>ccc</td>
+				<td>
+    <label><input type="radio" name="mid1" value="5" /> 5 </label>
+	<label><input type="radio" name="mid1" value="4" /> 4 </label>
+	<label><input type="radio" name="mid1" value="3" /> 3 </label>
+	<label><input type="radio" name="mid1" value="2" /> 2 </label>
+	<label><input type="radio" name="mid1" value="1" /> 1 </label>
+            </tr>
+            <tr id=mid2>
+                <td>2</td>
+                <td>aaa</td>
+                <td>ccc</td>
+				<td>
+<fieldset class="rating">
+    <label title="Rocks"><input type="radio" name="mid2" value="5" /> 5</label>
+    <label title="Good"> <input type="radio" name="mid2" value="4" /> 4</label>
+    <label title="Meh">  <input type="radio" name="mid2" value="3" /> 3</label>
+    <label title="Bad">  <input type="radio" name="mid2" value="2" /> 2</label>
+    <label title="Sucks"><input type="radio" name="mid2" value="1" /> 1</label>
+</fieldset></td>
+            </tr>
+            <tr id=mid3>
+                <td>3</td>
+                <td>aaa</td>
+                <td>ccc</td>
+				<td>
+<fieldset class="rating">
+    <label title="Rocks"><input type="radio" name="mid3" value="5" /> 5</label>
+    <label title="Good"> <input type="radio" name="mid3" value="4" /> 4</label>
+    <label title="Meh">  <input type="radio" name="mid3" value="3" /> 3</label>
+    <label title="Bad">  <input type="radio" name="mid3" value="2" /> 2</label>
+    <label title="Sucks"><input type="radio" name="mid3" value="1" /> 1</label>
+</fieldset></td>
+            </tr>
+             <tr id=mid3>
+                <td>4</td>
+                <td>aaa</td>
+                <td>ccc</td>
+				<td>
+<fieldset class="rating">
+    <label title="Rocks"><input type="radio" name="mid4" value="5" /> 5</label>
+    <label title="Good"> <input type="radio" name="mid4" value="4" /> 4</label>
+    <label title="Meh">  <input type="radio" name="mid4" value="3" /> 3</label>
+    <label title="Bad">  <input type="radio" name="mid4" value="2" /> 2</label>
+    <label title="Sucks"><input type="radio" name="mid4" value="1" /> 1</label>
+</fieldset></td>
+            </tr>
+             <tr id=mid5>
+                <td>5</td>
+                <td>aaa</td>
+                <td>ccc</td>
+				<td>
+<fieldset class="rating">
+    <label title="Rocks"><input type="radio" name="mid5" value="5" /> 5</label>
+    <label title="Good"> <input type="radio" name="mid5" value="4" /> 4</label>
+    <label title="Meh">  <input type="radio" name="mid5" value="3" /> 3</label>
+    <label title="Bad">  <input type="radio" name="mid5" value="2" /> 2</label>
+    <label title="Sucks"><input type="radio" name="mid5" value="1" /> 1</label>
+</fieldset></td>
+            </tr>
+             <tr id=mid6>
+                <td>6</td>
+                <td>aaa</td>
+                <td>ccc</td>
+				<td>
+<fieldset class="rating">
+    <label title="Rocks"><input type="radio" name="mid6" value="5" /> 5</label>
+    <label title="Good"> <input type="radio" name="mid6" value="4" /> 4</label>
+    <label title="Meh">  <input type="radio" name="mid6" value="3" /> 3</label>
+    <label title="Bad">  <input type="radio" name="mid6" value="2" /> 2</label>
+    <label title="Sucks"><input type="radio" name="mid6" value="1" /> 1</label>
+</fieldset></td>
+            </tr>
+             <tr id=mid7>
+                <td>7</td>
+                <td>aaa</td>
+                <td>ccc</td>
+				<td>
+<fieldset class="rating">
+    <label title="Rocks"><input type="radio" name="mid7" value="5" /> 5</label>
+    <label title="Good"> <input type="radio" name="mid7" value="4" /> 4</label>
+    <label title="Meh">  <input type="radio" name="mid7" value="3" /> 3</label>
+    <label title="Bad">  <input type="radio" name="mid7" value="2" /> 2</label>
+    <label title="Sucks"><input type="radio" name="mid7" value="1" /> 1</label>
+</fieldset></td>
+            </tr>
+        </tbody>
+    </table>
+<script>
+var obj = document.getElementsByName("mid1");
+//obj.value = 3;
+</script>
+</body>
+</html>
