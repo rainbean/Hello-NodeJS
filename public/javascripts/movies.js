@@ -35,6 +35,15 @@ function TR_set_color() {
         row = document.getElementById('mid' + user.rating[i].id);
         if (row)
 			row.style.backgroundColor = "YellowGreen"; 
+			
+		// show rating
+		var items = document.getElementsByName('mid' + user.rating[i].id);
+		for (var j = 0; items && i < items.length; ++j) {
+			if (items[j].value == user.rating[i].rate) {
+				items[j].checked = true;
+				break;
+			}
+		}
     }
     for (var row, i = 0; i < user.recommendation.length; ++i) {
         row = document.getElementById('mid' + user.recommendation[i].id);
@@ -63,9 +72,27 @@ function TR_insert_rating() {
 	}
 }
 
+function changeHandler() {
+    var item = event.target;
+    var mid = parseInt(item.name.substr(3));
+	for (var row, i = 0; i < user.rating.length; ++i) {
+        if (mid == user.rating[i].id)
+		{
+			// existed rating value
+			user.rating[i].rate = item.value;
+			return;
+		}
+	}
+	// add new rating
+	user.rating.push({id: mid, rate: item.value});
+	// change row color
+	row = document.getElementById('mid' + mid);
+    if (row)
+		row.style.backgroundColor = "YellowGreen"; 
+}
+
 /* toggle functions */
-function toggle(obj, alwaysOn)
-{
+function toggle(obj, alwaysOn) {
 	if (obj) 
 		obj.style.display = ((obj.style.display == '' && !alwaysOn) ? 'none' : '');
 }
@@ -99,4 +126,6 @@ function TR_toggle_all() {
 onload = function() {
     TR_set_color();
 	//TR_insert_rating();
+	
+	document.getElementById('mid').addEventListener('change', changeHandler, false);
 };

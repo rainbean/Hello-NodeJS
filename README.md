@@ -19,8 +19,7 @@ Install & Run project
 ----------------
 ToDo
 ----------------
-1. update user rating on radio button checked
-2. code to AJAX get/post user data 
-3. code to new/change user
-4. code to fetch user data
+1. get/post user list (AJAX)
+2. handle new/change user (combobox of jquery-easyui)
+3. update user ratings back to server (AJAX)
 
