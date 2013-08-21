@@ -24,6 +24,7 @@ app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
 app.use(express.session());
 app.use(app.router);
+app.use(express.compress()); // gzip
 app.use(require('stylus').middleware(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -33,7 +34,7 @@ if ('development' == app.get('env')) {
 }
 
 // check if movies template generated
-fs.exists("views/movies.html", function (exists) {
+fs.exists("public/movies.html", function (exists) {
   if (!exists) {
     var movieMod = require('./movies/moviesMod.js');
     movieMod.run();
@@ -57,7 +58,6 @@ fs.exists("movies/ratings.dat", function (exists) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/user/:office?/:name', user.read);
-app.get('/movies', movie.list);
 app.get('/movies/:name', movie.getRate);
 app.post('/movies/:name', movie.setRate);
 

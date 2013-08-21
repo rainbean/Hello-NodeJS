@@ -9,7 +9,7 @@ exports.run = function() {
     }
   });
 
-  var fout = fs.createWriteStream("views/movies.html");
+  var fout = fs.createWriteStream("public/movies.html");
   // write header
   fout.on('open', function(fd) {
     fout.write("<!DOCTYPE html><html><head><title></title>");
@@ -31,11 +31,14 @@ exports.run = function() {
     fout.write("<td>" + arr[0]);
     fout.write("<td><a href='http://movielens.umn.edu/movieDetail?movieId=" + arr[0] + "'>" + arr[1] + "</a>");
     fout.write("<td>" + arr[2]);
+
+	// it takes way longer to render html in client javascript dynamically
 	fout.write("<td><label><input type='radio' name='mid" + arr[0] + "' value='5' /> 5 </label>");
 	fout.write("<label><input type='radio' name='mid" + arr[0] + "' value='4' /> 4 </label>");
 	fout.write("<label><input type='radio' name='mid" + arr[0] + "' value='3' /> 3 </label>");
 	fout.write("<label><input type='radio' name='mid" + arr[0] + "' value='2' /> 2 </label>");
 	fout.write("<label><input type='radio' name='mid" + arr[0] + "' value='1' /> 1 </label>");
+
     if (last)
     {
       fout.write("</tbody></table></body></html>");

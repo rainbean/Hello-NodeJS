@@ -1,18 +1,3 @@
-
-/*
- * GET movies page.
- */
-exports.list = function(req, res){
-  res.render('movies');
-};
-
-/*
- * GET test page.
- */
-exports.test = function(req, res){
-  res.render('test');
-};
-
 /*
  * GET user's rating in JSON format
  */

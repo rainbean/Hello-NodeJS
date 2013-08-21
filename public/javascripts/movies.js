@@ -1,34 +1,3 @@
-
-
-/* call onload with table id(s) */
-/*
-function TR_set_toggle()
-{
-	// toggleRow method 
-	var toggleRow = function()
-	{
-		this.style.display = ((this.style.display == '') ? 'none' : '');
-		return false;
-	}
-
-	for (var oTable, a = 0; a < arguments.length; ++a)
-	{
-		oTable = document.getElementById(arguments[a]);
-		var r = 0, row, rows = oTable.rows;
-		while (row = rows.item(r++))
-		{
-			row.toggle = toggleRow;
-		}
-	}
-
-	// convenience function
-	self.toggleRow = function(row_id)
-	{
-		document.getElementById(row_id).toggle();
-	}
-}
-*/
-
 var user = {
   "name": "Samuel",
   "id": 10001,
@@ -60,7 +29,7 @@ var user = {
   
 };
 
-/* call onload with table id(s) */
+/* fill color per user's data */
 function TR_set_color() {
     for (var row, i = 0; i < user.rating.length; ++i) {
         row = document.getElementById('mid' + user.rating[i].id);
@@ -74,13 +43,33 @@ function TR_set_color() {
     }
 }
 
+function TR_insert_rating() {
+	// it takes way longer to render html in client javascript dynamically
+	if (1)
+		return false;
+		
+	var oTable = document.getElementById('mid');
+	var r = 0, row, rows = oTable.rows;
+	while (row = rows.item(r++))
+	{
+		var id = row.cells[0].innerText;
+		var td = row.insertCell(-1); // <-- bottleneck
+		td.innerHTML = 
+			"<label><input type='radio' name='mid" + id + "' value='5' /> 5 </label>" +
+			"<label><input type='radio' name='mid" + id + "' value='4' /> 4 </label>" + 
+			"<label><input type='radio' name='mid" + id + "' value='3' /> 3 </label>" + 
+			"<label><input type='radio' name='mid" + id + "' value='2' /> 2 </label>" + 
+			"<label><input type='radio' name='mid" + id + "' value='1' /> 1 </label>";
+	}
+}
+
+/* toggle functions */
 function toggle(obj, alwaysOn)
 {
 	if (obj) 
 		obj.style.display = ((obj.style.display == '' && !alwaysOn) ? 'none' : '');
 }
 
-/* call onload with table id(s) */
 function TR_toggle_rows(items) {
     for (var row, i = 0; i < items.length; ++i) {
         row = document.getElementById('mid' + items[i].id);
@@ -109,4 +98,5 @@ function TR_toggle_all() {
 
 onload = function() {
     TR_set_color();
+	//TR_insert_rating();
 };
