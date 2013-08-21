@@ -16,4 +16,12 @@ Install & Run project
 3. npm install
 4. sudo node app
 
+----------------
+ToDo
+----------------
+1. Reduce movies.html file size by dynamically add DOM object (rating & onclick)
+2. update user rating on radio button checked
+3. code to AJAX get/post user data 
+4. code to new/change user
+5. code to fetch user data
 
