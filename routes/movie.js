@@ -60,28 +60,29 @@ exports.setRate = function(req, res) {
       fs.appendFile("movies/users.dat", user.id + "::" + user.name + "\n");
     }
 
-	// update movie rating database
-	lineReader.eachLine("movies/ratings.dat", function(line, last) {
-		var arr = line.split("::");
-		if (arr[0] != user.id) {
-		  // remove user's existing ratings from database
-		  fs.appendFile("movies/ratings-tmp.dat", line + "\n");
-		}
-	  }).then(function () {
-		// add user's existing ratings to database
-		user.rating.forEach(function (rate) {
-		  fs.appendFile("movies/ratings-tmp.dat", 
-			  user.id + "::" + rate.id + "::" + rate.rate + "\n");
-		});
-		// overwrite database
-		fs.unlink("movies/ratings.dat", function (err) {
-		  if (err) throw err;
-		  fs.rename("movies/ratings-tmp.dat", "movies/ratings.dat");
-		});
+    // update movie rating database
+    lineReader.eachLine("movies/ratings.dat", function(line, last) {
+      var arr = line.split("::");
+      if (arr[0] != user.id) {
+        // remove user's existing ratings from database
+        fs.appendFile("movies/ratings-tmp.dat", line + "\n");
+      }
+    }).then(function () {
+      // add user's existing ratings to database
+      if (user.rating) {
+        user.rating.forEach(function (rate) {
+          fs.appendFile("movies/ratings-tmp.dat", user.id + "::" + rate.id + "::" + rate.rate + "\n");
+        });
+      }
+      // overwrite database
+      fs.unlink("movies/ratings.dat", function (err) {
+        if (err) throw err;
+        fs.rename("movies/ratings-tmp.dat", "movies/ratings.dat");
+      });
 
-		// reply updated user data
-		res.send(user);
-	});
+      // reply updated user data
+      res.send(user);
+    });
   });
 }
 

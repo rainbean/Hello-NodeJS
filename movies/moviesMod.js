@@ -24,7 +24,7 @@ exports.run = function() {
 	fout.write("<a class='squarebutton green' href='#' style='margin-left: 10px' onClick='TR_toggle_rates()'><span>Rated Item(s)</span></a>\n"); 
 	fout.write("<a class='squarebutton orange' href='#' style='margin-left: 10px' onClick='TR_toggle_recommendation()'><span>Recommendation(s)</span></a>\n");
 	fout.write("<div class='usernameblock'><select id='userlist'><option>Select user</option></select>\n");
-	fout.write("or create new one <input type='text' id='username' /><button id='updateBtn' type='button'>Update</button></div></div>\n");
+	fout.write("or <input type='text' id='username' placeholder='input new user'/><button id='updateBtn' type='button'>Update</button></div></div>\n");
 	fout.write("<table><thead><tr><th>ID</th><th>Name</th><th>Genre</th><th width='250px'>Rating</th></tr></thead>\n<tbody id='mid'>");
   });
 

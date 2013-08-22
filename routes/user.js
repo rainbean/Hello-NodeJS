@@ -3,11 +3,18 @@
  * GET users listing.
  */
 exports.list = function(req, res){
-  var users = [ { name: 'Jimmy', id: 10000 },
-                { name: 'Winston', id: 10002 },
-                { name: 'Samuel', id: 10003 },
-                { name: 'Jeremy', id: 10004 } ];
-  res.send(users);
+  var fs =require('fs');
+  var lineReader = require('line-reader');
+
+  // assume URL as /movies/Samuel, and default user id from 10000
+  var users = [];
+
+  lineReader.eachLine("movies/users.dat", function(line) {
+    var arr = line.split("::");
+    users.push({name: arr[1], id: arr[0]});
+  }).then(function () {
+    res.send(users);
+  });
 };
 
 exports.list.html = function(req, res){

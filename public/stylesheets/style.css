@@ -7,7 +7,7 @@ a {
 }
 .usernameblock {
   float: right;
-  width: 500px;
+  width: 450px;
   font-size: 125%;
 }
 .usernameblock > select {
@@ -20,4 +20,12 @@ a {
 }
 .usernameblock > button {
   font-size: 1em;
+  background-color: #7c5b2b;
+  color: #FFFFFF;
+}
+.usernameblock > button:hover {
+  background-color: #805d2c;
+}
+.usernameblock > button:disabled {
+  background-color: #f4f5f5;
 }

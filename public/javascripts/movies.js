@@ -1,35 +1,6 @@
-var user = {
-  "name": "Samuel",
-  "id": 10001,
-  "rating": [
-    {
-      "id": 2,
-      "rate": 3
-    },
-    {
-      "id": 3,
-      "rate": 2
-    },
-    {
-      "id": 18,
-      "rate": 5
-    }
-  ], 	
-  "recommendation": [
-    {
-      "id": 4,
-    },
-    {
-      "id": 7,
-    },
-    {
-      "id": 21,
-    }
-  ]
-  
-};
-
-var userlist;
+var null_user = {name: '', id: 10000, rating: [], recommendation: []};
+var user = null_user;
+var userlist = [];
 function Fetch_user_list() {
 	$.getJSON( "/users", function(data) {
 		userlist = data; // keep userlist in case
@@ -43,16 +14,25 @@ function Fetch_user_list() {
 	});
 }
 
-function select_changeHandler() {
-    var select = event.target;
+function user_changeHandler() {
+    var x = event.target;
+	var name;
 	//clear current selection
-    TR_set_color(true);
-	user = null;
-	document.getElementById('updateBtn').disabled = true;
-	if (select.selectedIndex == 0) 
-		return;
+	TR_set_color(true);
+	user = null_user;
+	if (x.id == 'username') {
+		console.log(x.value);
+		document.getElementById('userlist').selectedIndex = 0;
+		if (x.value == '')
+			document.getElementById('updateBtn').disabled = true;
+		name = x.value;
+	} else {
+		document.getElementById('updateBtn').disabled = true;
+		if (x.selectedIndex == 0) 
+			return;
+		name = x.options[x.selectedIndex].text;
+	}
     // fetch new user data
-	var name = select.options[select.selectedIndex].text;
 	$.getJSON("/movies/" + name, function(data) {
 		user = data; // keep userlist in case
 		TR_set_color();
@@ -114,8 +94,17 @@ function TR_insert_rating() {
 function radio_changeHandler() {
     var item = event.target;
     var mid = parseInt(item.name.substr(3));
+	// change row color
+	row = document.getElementById('mid' + mid);
+    if (row)
+		row.style.backgroundColor = "YellowGreen"; 
+	document.getElementById('updateBtn').disabled = false;
+	if (!user)
+		user = null_user;
+	if (!user.rating)
+		user.rating = [];
 	for (var row, i = 0; i < user.rating.length; ++i) {
-        if (mid == user.rating[i].id)
+		if (mid == user.rating[i].id)
 		{
 			// existed rating value
 			user.rating[i].rate = item.value;
@@ -124,11 +113,6 @@ function radio_changeHandler() {
 	}
 	// add new rating
 	user.rating.push({id: mid, rate: item.value});
-	// change row color
-	row = document.getElementById('mid' + mid);
-    if (row)
-		row.style.backgroundColor = "YellowGreen"; 
-	document.getElementById('updateBtn').disabled = false;
 }
 
 /* toggle functions */
@@ -169,7 +153,8 @@ onload = function() {
 	//TR_insert_rating();
 	
 	document.getElementById('mid').addEventListener('change', radio_changeHandler, false);
-	document.getElementById('userlist').addEventListener('change', select_changeHandler, false);
+	document.getElementById('userlist').addEventListener('change', user_changeHandler, false);
+	document.getElementById('username').addEventListener('change', user_changeHandler, false);
 	document.getElementById('updateBtn').addEventListener('click', update_userdata, false);
     document.getElementById('updateBtn').disabled = true;
 

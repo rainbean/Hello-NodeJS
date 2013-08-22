@@ -19,5 +19,7 @@ Install & Run project
 ----------------
 ToDo
 ----------------
-1. handle new/change user
+1. Link with hadoop engine
+2. Gather recommendation result from hadoop
+3. Add recommendation parsing code
 
