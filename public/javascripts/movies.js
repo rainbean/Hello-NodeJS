@@ -48,27 +48,27 @@ function update_userdata() {
 
 /* fill color per user's data */
 function TR_set_color(clear) {
-	if (!user)
-		return;
-    for (var row, i = 0; user.rating && i < user.rating.length; ++i) {
-        row = document.getElementById('mid' + user.rating[i].id);
-        if (row)
-			row.style.backgroundColor = (clear ? "" : "YellowGreen"); 
+  if (!user)
+    return;
+  for (var row, i = 0; user.rating && i < user.rating.length; ++i) {
+    row = document.getElementById('mid' + user.rating[i].id);
+    if (row)
+      row.style.backgroundColor = (clear ? "" : "YellowGreen"); 
 			
-		// show rating
-		var items = document.getElementsByName('mid' + user.rating[i].id);
-		for (var j = 0; items && i < items.length; ++j) {
-			if (items[j].value == user.rating[i].rate) {
-				items[j].checked = (clear ? false: true);
-				break;
-			}
-		}
+    // show rating
+    var items = document.getElementsByName('mid' + user.rating[i].id);
+    for (var j = 0; items && j < items.length; ++j) {
+      if (items[j].value == user.rating[i].rate) {
+        items[j].checked = (clear ? false: true);
+        break;
+      }
     }
-    for (var row, i = 0; user.recommendation && i < user.recommendation.length; ++i) {
-        row = document.getElementById('mid' + user.recommendation[i].id);
-        if (row)
-			row.style.backgroundColor = (clear ? "" : "Orange");
-    }
+  }
+  for (var row, i = 0; user.recommendation && i < user.recommendation.length; ++i) {
+    row = document.getElementById('mid' + user.recommendation[i].id);
+    if (row)
+      row.style.backgroundColor = (clear ? "" : "Orange");
+  }
 }
 
 function TR_insert_rating() {
