@@ -7,14 +7,14 @@ exports.getRate = function(req, res){
 
   // assume URL as /movies/Samuel, and default user id from 10000
   var user = {name: req.params.name, id: 10000, rating: [], recommendation: []};
-  var jimmy_recommendation = [{id: 1784}, {id: 440}, {id: 2302}, {id: 2145}, {id: 2420}, {id: 2915}, {id: 2174}, {id: 2262}, {id: 3526}, {id: 357}];
-  user.recommendation = jimmy_recommendation;
+  //var jimmy_recommendation = [{id: 1784}, {id: 440}, {id: 2302}, {id: 2145}, {id: 2420}, {id: 2915}, {id: 2174}, {id: 2262}, {id: 3526}, {id: 357}];
+  //user.recommendation = jimmy_recommendation;
   
   lineReader.eachLine("movies/users.dat", function(line) {
     var arr = line.split("::");
     if (arr[1] == user.name) {
       user.id = arr[0];
-      return false; // stop reading file
+      return false; // data found, stop reading file
     }
   }).then(function () {
     lineReader.eachLine("movies/ratings.dat", function(line) {
@@ -24,7 +24,23 @@ exports.getRate = function(req, res){
         user.rating.push({id: arr[1], rate: arr[2]});
       }
     }).then(function () {
+	  lineReader.eachLine("movies/recommendation.dat", function(line) {
+/***
+ Rules: A | B | C
+  A <- /\s+\[/  match "	["
+  B <- /:\d\.\d+,/  match ":4.7176538,"
+  C <- /:\d\.\d+\]/ match ":4.5418167]"
+ ***/
+        var arr = line.split(/\s+\[|:\d\.\d+,|:\d\.\d+\]/g);
+        if (arr[0] == user.id) {
+          for (var i=1; i<arr.length; ++i)
+            user.recommendation.push({id: arr[i]});
+          return false; // data found, stop reading file
+        }
+      }).then(function () {
+        console.log(user);
         res.send(user);
+      });
     });
   });
 };

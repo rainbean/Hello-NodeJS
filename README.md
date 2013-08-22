@@ -21,5 +21,5 @@ ToDo
 ----------------
 1. Link with hadoop engine
 2. Gather recommendation result from hadoop
-3. Add recommendation parsing code
+
 
