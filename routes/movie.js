@@ -7,6 +7,8 @@ exports.getRate = function(req, res){
 
   // assume URL as /movies/Samuel, and default user id from 10000
   var user = {name: req.params.name, id: 10000, rating: [], recommendation: []};
+  var jimmy_recommendation = [{id: 1784}, {id: 440}, {id: 2302}, {id: 2145}, {id: 2420}, {id: 2915}, {id: 2174}, {id: 2262}, {id: 3526}, {id: 357}];
+  user.recommendation = jimmy_recommendation;
   
   lineReader.eachLine("movies/users.dat", function(line) {
     var arr = line.split("::");
@@ -22,7 +24,7 @@ exports.getRate = function(req, res){
         user.rating.push({id: arr[1], rate: arr[2]});
       }
     }).then(function () {
-      res.send(user);
+        res.send(user);
     });
   });
 };
