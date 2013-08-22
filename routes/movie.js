@@ -6,8 +6,7 @@ exports.getRate = function(req, res){
   var lineReader = require('line-reader');
 
   // assume URL as /movies/Samuel, and default user id from 10000
-  var user = { name: req.params.name, id: 10000, rating: null };
-  var rates = [];
+  var user = {name: req.params.name, id: 10000, rating: [], recommendation: []};
   
   lineReader.eachLine("movies/users.dat", function(line) {
     var arr = line.split("::");
@@ -15,18 +14,17 @@ exports.getRate = function(req, res){
       user.id = arr[0];
       return false; // stop reading file
     }
+  }).then(function () {
+    lineReader.eachLine("movies/ratings.dat", function(line) {
+      var arr = line.split("::");
+      if (arr[0] == user.id) {
+        // found rated movies
+        user.rating.push({id: arr[1], rate: arr[2]});
+      }
+    }).then(function () {
+      res.send(user);
+    });
   });
-  
-  lineReader.eachLine("movies/ratings.dat", function(line) {
-    var arr = line.split("::");
-    if (arr[0] == user.id) {
-      // found rated movies
-      rates.push({id: arr[1], rate: arr[2]});
-    }
-  });
-  
-  user.rating = rates;
-  res.send(user);
 };
 
 /*

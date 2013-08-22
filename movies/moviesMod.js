@@ -12,17 +12,20 @@ exports.run = function() {
   var fout = fs.createWriteStream("public/movies.html");
   // write header
   fout.on('open', function(fd) {
-    fout.write("<!DOCTYPE html><html><head><title></title>");
-	fout.write("<link rel='stylesheet' href='/stylesheets/style.css'>");
-	fout.write("<link rel='stylesheet' href='/stylesheets/table.css'>");
-	fout.write("<link rel='stylesheet' href='/stylesheets/button.css'>");
-	fout.write("<script type='application/javascript' src='/javascripts/movies.js' ></script></head>");
-    fout.write("<body><h1>Movies Database</h1><hr>");
-	fout.write("<div class='buttonwrapper' onClick='return false'>");
-	fout.write("<a class='squarebutton' href='#' onClick='TR_toggle_all()'><span>All Items</span></a>"); 
-	fout.write("<a class='squarebutton green' href='#' style='margin-left: 10px' onClick='TR_toggle_rates()'><span>Rated Item(s)</span></a>"); 
-	fout.write("<a class='squarebutton orange' href='#' style='margin-left: 10px' onClick='TR_toggle_recommendation()'><span>Recommendation(s)</span></a>");
-	fout.write("</div><table><thead><tr><th>ID</th><th>Name</th><th>Genre</th><th>Rating</th></tr></thead><tbody id='mid'>");
+    fout.write("<!DOCTYPE html><html><head><title></title>\n");
+	fout.write("<link rel='stylesheet' href='/stylesheets/style.css'>\n");
+	fout.write("<link rel='stylesheet' href='/stylesheets/table.css'>\n");
+	fout.write("<link rel='stylesheet' href='/stylesheets/button.css'>\n");
+	fout.write("<script type='application/javascript' src='/jquery-easyui/jquery.min.js'></script>\n");
+	fout.write("<script type='application/javascript' src='/javascripts/movies.js' ></script></head>\n");
+	fout.write("<body><h1>Movies Database</h1><hr>\n");
+	fout.write("<div class='buttonwrapper' onClick='return false'>\n");
+	fout.write("<a class='squarebutton' href='#' onClick='TR_toggle_all()'><span>All Items</span></a>\n"); 
+	fout.write("<a class='squarebutton green' href='#' style='margin-left: 10px' onClick='TR_toggle_rates()'><span>Rated Item(s)</span></a>\n"); 
+	fout.write("<a class='squarebutton orange' href='#' style='margin-left: 10px' onClick='TR_toggle_recommendation()'><span>Recommendation(s)</span></a>\n");
+	fout.write("<div class='usernameblock'><select id='userlist'><option>Select user</option></select>\n");
+	fout.write("or create new one <input type='text' id='username' /><button id='updateBtn' type='button'>Update</button></div></div>\n");
+	fout.write("<table><thead><tr><th>ID</th><th>Name</th><th>Genre</th><th width='250px'>Rating</th></tr></thead>\n<tbody id='mid'>");
   });
 
   lineReader.eachLine("movies/movies.dat", function(line, last) {
@@ -41,7 +44,7 @@ exports.run = function() {
 
     if (last)
     {
-      fout.write("</tbody></table></body></html>");
+      fout.write("\n</tbody></table></body></html>");
       fout.end();
       console.log('Movie.html was created successfully!');
     }

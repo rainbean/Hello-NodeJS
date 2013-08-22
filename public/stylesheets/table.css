@@ -30,6 +30,7 @@ tbody th {
 tbody tr { background: #FCFDFE; }
 
 tbody tr.odd { background: #F7F9FC; }
+tbody tr:hover { background-color: gold; }
 
 table a:link {
 	color: #718ABE;

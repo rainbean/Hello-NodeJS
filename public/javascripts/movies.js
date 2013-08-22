@@ -29,26 +29,65 @@ var user = {
   
 };
 
+var userlist;
+function Fetch_user_list() {
+	$.getJSON( "/users", function(data) {
+		userlist = data; // keep userlist in case
+		var select = document.getElementById('userlist');
+		for(var i in data) {
+			var option=document.createElement('option');
+			option.text = data[i].name;
+			option.value = data[i].id;
+			select.add(option, null);
+		}
+	});
+}
+
+function select_changeHandler() {
+    var select = event.target;
+	//clear current selection
+    TR_set_color(true);
+	user = null;
+	document.getElementById('updateBtn').disabled = true;
+	if (select.selectedIndex == 0) 
+		return;
+    // fetch new user data
+	var name = select.options[select.selectedIndex].text;
+	$.getJSON("/movies/" + name, function(data) {
+		user = data; // keep userlist in case
+		TR_set_color();
+	});
+}
+
+function update_userdata() {
+	if (!user)
+		return;
+	event.target.disabled = true;
+	$.post("/movies/" + user.name, user);
+}
+
 /* fill color per user's data */
-function TR_set_color() {
-    for (var row, i = 0; i < user.rating.length; ++i) {
+function TR_set_color(clear) {
+	if (!user)
+		return;
+    for (var row, i = 0; user.rating && i < user.rating.length; ++i) {
         row = document.getElementById('mid' + user.rating[i].id);
         if (row)
-			row.style.backgroundColor = "YellowGreen"; 
+			row.style.backgroundColor = (clear ? "" : "YellowGreen"); 
 			
 		// show rating
 		var items = document.getElementsByName('mid' + user.rating[i].id);
 		for (var j = 0; items && i < items.length; ++j) {
 			if (items[j].value == user.rating[i].rate) {
-				items[j].checked = true;
+				items[j].checked = (clear ? false: true);
 				break;
 			}
 		}
     }
-    for (var row, i = 0; i < user.recommendation.length; ++i) {
+    for (var row, i = 0; user.recommendation && i < user.recommendation.length; ++i) {
         row = document.getElementById('mid' + user.recommendation[i].id);
         if (row)
-			row.style.backgroundColor = "Orange ";
+			row.style.backgroundColor = (clear ? "" : "Orange");
     }
 }
 
@@ -72,7 +111,7 @@ function TR_insert_rating() {
 	}
 }
 
-function changeHandler() {
+function radio_changeHandler() {
     var item = event.target;
     var mid = parseInt(item.name.substr(3));
 	for (var row, i = 0; i < user.rating.length; ++i) {
@@ -89,6 +128,7 @@ function changeHandler() {
 	row = document.getElementById('mid' + mid);
     if (row)
 		row.style.backgroundColor = "YellowGreen"; 
+	document.getElementById('updateBtn').disabled = false;
 }
 
 /* toggle functions */
@@ -123,9 +163,16 @@ function TR_toggle_all() {
 	return false;
 }
 
+
 onload = function() {
     TR_set_color();
 	//TR_insert_rating();
 	
-	document.getElementById('mid').addEventListener('change', changeHandler, false);
+	document.getElementById('mid').addEventListener('change', radio_changeHandler, false);
+	document.getElementById('userlist').addEventListener('change', select_changeHandler, false);
+	document.getElementById('updateBtn').addEventListener('click', update_userdata, false);
+    document.getElementById('updateBtn').disabled = true;
+
+   // get user list
+   Fetch_user_list();
 };

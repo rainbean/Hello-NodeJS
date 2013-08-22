@@ -5,3 +5,19 @@ body {
 a {
   color: #00b7ff;
 }
+.usernameblock {
+  float: right;
+  width: 500px;
+  font-size: 125%;
+}
+.usernameblock > select {
+  font-size: 1em;
+  border: 1px solid black;
+}
+.usernameblock > input {
+  font-size: 1em;
+  border: 1px solid black;
+}
+.usernameblock > button {
+  font-size: 1em;
+}

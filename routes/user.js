@@ -2,8 +2,15 @@
 /*
  * GET users listing.
  */
-
 exports.list = function(req, res){
+  var users = [ { name: 'Jimmy', id: 10000 },
+                { name: 'Winston', id: 10002 },
+                { name: 'Samuel', id: 10003 },
+                { name: 'Jeremy', id: 10004 } ];
+  res.send(users);
+};
+
+exports.list.html = function(req, res){
   var users = [ { name: 'Jimmy', office: 'Taipei' },
                 { name: 'Winston', office: 'Taipei' },
                 { name: 'Samuel', office: 'Freemout' },
