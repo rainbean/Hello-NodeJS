@@ -28,7 +28,7 @@ Future Works
 
 Q&A
 --------------
-- Q: Invalid characters in movies name? A: Convert movies.dat to UTF-8 format
+- **Invalid characters in movies name?** Convert movies.dat to UTF-8 format
 ```
  $ iconv -f iso-8859-1 -t utf-8 movies-src.dat > movies.dat
 ```

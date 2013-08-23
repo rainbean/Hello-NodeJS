@@ -6,10 +6,12 @@ a {
   color: #00b7ff;
 }
 .usernameblock {
-  float: right;
-  width: 450px;
+  position: absolute;
   font-size: 125%;
+  margin-top: 32px;
+  margin-left: 750px
 }
+/*
 .usernameblock > select {
   font-size: 1em;
   border: 1px solid black;
@@ -28,4 +30,39 @@ a {
 }
 .usernameblock > button:disabled {
   background-color: #f4f5f5;
+}
+*/
+#fwcontainer {
+  width: 980px;
+  padding-top: 1em;
+  margin: 0 auto;
+}
+#metacontainer{
+  float: left;
+  width: 100%;
+  font-size: 125%;
+  padding-top: 1em;
+}
+#metacontainer2{
+  position: absolute;
+  right: 12px;
+  width: 450px;
+  height: 100%;
+  font-size: 125%;
+}
+#bdcontainer {
+  width: 1100px;
+  padding-top: 2em;
+  margin: 0 auto;
+}
+
+/*
+ * Row highlighting example
+ */
+#movies tbody tr.even:hover, #movies tbody tr.even td.highlighted {
+	background-color: #ECFFB3;
+}
+
+#movies tbody tr.odd:hover, #movies tbody tr.odd td.highlighted {
+	background-color: #E6FF99;
 }

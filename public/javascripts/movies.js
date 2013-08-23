@@ -71,31 +71,11 @@ function TR_set_color(clear) {
   }
 }
 
-function TR_insert_rating() {
-	// it takes way longer to render html in client javascript dynamically
-	if (1)
-		return false;
-		
-	var oTable = document.getElementById('mid');
-	var r = 0, row, rows = oTable.rows;
-	while (row = rows.item(r++))
-	{
-		var id = row.cells[0].innerText;
-		var td = row.insertCell(-1); // <-- bottleneck
-		td.innerHTML = 
-			"<label><input type='radio' name='mid" + id + "' value='5' /> 5 </label>" +
-			"<label><input type='radio' name='mid" + id + "' value='4' /> 4 </label>" + 
-			"<label><input type='radio' name='mid" + id + "' value='3' /> 3 </label>" + 
-			"<label><input type='radio' name='mid" + id + "' value='2' /> 2 </label>" + 
-			"<label><input type='radio' name='mid" + id + "' value='1' /> 1 </label>";
-	}
-}
-
 function radio_changeHandler() {
     var item = event.target;
     var mid = parseInt(item.name.substr(3));
 	// change row color
-	row = document.getElementById('mid' + mid);
+	row = document.getElementById('rate' + mid);
     if (row)
 		row.style.backgroundColor = "YellowGreen"; 
 	document.getElementById('updateBtn').disabled = false;
@@ -138,7 +118,7 @@ function TR_toggle_recommendation() {
 }
 
 function TR_toggle_all() {
-	oTable = document.getElementById('mid');
+	oTable = document.getElementById('movierows');
 	var r = 0, row, rows = oTable.rows;
 	while (row = rows.item(r++))
 		toggle(row);
@@ -147,12 +127,47 @@ function TR_toggle_all() {
 	return false;
 }
 
+function fnCellCreatedCB(nTd, sData, oData, iRow, iCol) {
+  if ( sData == "7" ) { // if id match
+    $(nTd.parentNode).css('background-color', 'YellowGreen'); 
+    //$(nTd).css('background-color', 'YellowGreen'); // walkaround 
+  }
+}
+
+function fnCreateRatingColumnCB(data, type, full) {
+  var s = [
+    '<label><input type=radio name=rate', data, ' value=5/>5 </label>',
+    '<label><input type=radio name=rate', data, ' value=4/>4 </label>',
+    '<label><input type=radio name=rate', data, ' value=3/>3 </label>',
+    '<label><input type=radio name=rate', data, ' value=2/>2 </label>',
+    '<label><input type=radio name=rate', data, ' value=1/>1 </label>'];
+  return s.join('');
+}
+
+function fnDocumentReadyCB() {
+    $('#movies').dataTable( {
+      "bProcessing": true,
+      "sAjaxSource": '/movies',
+      "aoColumnDefs": [ 
+	    { // change color of user rated's row when cell was rendered/created
+          "aTargets": [0], // MovieID column
+          "fnCreatedCell": fnCellCreatedCB
+        },
+	    { // create rating column
+		  "aTargets": [-1],
+          "mData": 0, // data refer to MovieID column
+          "bSortable": false,
+          "mRender": fnCreateRatingColumnCB
+        },
+	  ]
+    });
+}
 
 onload = function() {
     //TR_set_color();
 	//TR_insert_rating();
 	
-	document.getElementById('mid').addEventListener('change', radio_changeHandler, false);
+	document.getElementById('movierows').addEventListener('change', radio_changeHandler, false);
 	document.getElementById('userlist').addEventListener('change', user_changeHandler, false);
 	document.getElementById('username').addEventListener('change', user_changeHandler, false);
 	document.getElementById('updateBtn').addEventListener('click', update_userdata, false);
