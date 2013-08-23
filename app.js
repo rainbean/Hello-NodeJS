@@ -33,11 +33,11 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-// check if movies template generated
-fs.exists("public/movies.html", function (exists) {
+// check if movies database generated
+fs.exists("public/movies.json", function (exists) {
   if (!exists) {
-    var movieMod = require('./movies/moviesMod.js');
-    movieMod.run();
+    var moviedb = require('./movies/moviesJSON.js');
+    moviedb.run();
   }
 });
 
@@ -60,6 +60,9 @@ app.get('/users', user.list);
 app.get('/user/:office?/:name', user.read);
 app.get('/movies/:name', movie.getRate);
 app.post('/movies/:name', movie.setRate);
+app.get('/movies', function(req, res) {
+    res.sendfile('public/movies.json');
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

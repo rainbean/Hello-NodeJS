@@ -149,7 +149,7 @@ function TR_toggle_all() {
 
 
 onload = function() {
-    TR_set_color();
+    //TR_set_color();
 	//TR_insert_rating();
 	
 	document.getElementById('mid').addEventListener('change', radio_changeHandler, false);

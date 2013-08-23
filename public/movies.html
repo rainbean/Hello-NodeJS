@@ -1,0 +1,51 @@
+<!DOCTYPE html><html><head><title></title>
+<link rel='stylesheet' href='/stylesheets/style.css'>
+<link rel='stylesheet' href='/stylesheets/button.css'>
+<link rel='stylesheet' href='/DataTables/media/css/demo_page.css'>
+<link rel='stylesheet' href='/DataTables/media/css/demo_table.css'>
+<!--
+<script type='application/javascript' src='/jquery-easyui/jquery.min.js'></script>
+-->
+<script type='application/javascript' src='/DataTables/media/js/jquery.js'></script>
+<script type='application/javascript' src='/DataTables/media/js/jquery.dataTables.js'></script>
+<script type='application/javascript' src='/javascripts/movies.js'></script>
+<script type='text/javascript'>
+  $(document).ready(function() {
+    $('#movies').dataTable( {
+      "bProcessing": true,
+      "sAjaxSource": '/movies'
+    });
+  });
+</script></head><body><h1>Movies Database</h1><hr>
+<div class='buttonwrapper' onClick='return false'>
+  <a class='squarebutton' href='#' onClick='TR_toggle_all()'><span>All Items</span></a>
+  <a class='squarebutton green' href='#' style='margin-left: 10px' onClick='TR_toggle_rates()'><span>Rated Item(s)</span></a>
+  <a class='squarebutton orange' href='#' style='margin-left: 10px' onClick='TR_toggle_recommendation()'><span>Recommendation(s)</span></a>
+  <div class='usernameblock'>
+    <select id='userlist'><option>Select user</option></select>
+    or <input type='text' id='username' placeholder='input new user'/>
+    <button id='updateBtn' type='button'>Update</button>
+  </div>
+</div>
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="movies">
+    <thead>
+        <tr>
+            <th width="10%">ID</th>
+            <th width="40%">Name</th>
+            <th width="10%">Year</th>
+            <th width="20%">Genre(s)</th>
+        </tr>
+    </thead>
+    <tbody id='mid'>
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Year</th>
+            <th>Genre(s)</th>
+</tr>
+    </tfoot>
+</table>
+</body></html>

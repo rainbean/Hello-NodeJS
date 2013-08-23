@@ -19,7 +19,18 @@ Install & Run project
 ----------------
 ToDo
 ----------------
-1. Link with hadoop engine
-2. Gather recommendation result from hadoop
+1. Present color of rating and recommendation 
+2. Add back rating system
+3. Movie linkage with IMDB
 
+----------------
+Future Works
+----------------
+1. Tightly integrate with hadoop engine
+
+----------------
+Q&A
+----------------
+Q. Invalid characters in movies name? 
+A. Convert movies.dat to UTF-8 format.  $ iconv -f iso-8859-1 -t utf-8 movies-src.dat > movies.dat
 
