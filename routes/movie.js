@@ -33,7 +33,7 @@ exports.getRate = function(req, res){
  ***/
         var arr = line.split(/\s+\[|:\d\.\d+,|:\d\.\d+\]/g);
         if (arr[0] == user.id) {
-          for (var i=1; i<arr.length; ++i)
+          for (var i=1; arr[i] && i<arr.length; ++i)
             user.recommendation.push({id: arr[i]});
           return false; // data found, stop reading file
         }
@@ -60,7 +60,7 @@ exports.setRate = function(req, res) {
   // assume URL as /movies/Samuel, and default user id from 10000
   //var user = { name: req.params.name, id: 10000, rating: null };
   //var rates = [];
-  var realID = user.id+1;
+  var realID = parseInt(user.id)+1;
 
   // validate user data
   lineReader.eachLine("movies/users.dat", function(line, last) {
@@ -74,7 +74,6 @@ exports.setRate = function(req, res) {
     if (realID != user.id) {
       // user not found at EOF, treat as new user
       user.id = realID;
-      console.log ("add user to users.dat");
       fs.appendFile("movies/users.dat", user.id + "::" + user.name + "\n");
     }
 
