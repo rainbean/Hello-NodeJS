@@ -37,7 +37,7 @@ if ('development' == app.get('env')) {
 fs.exists("public/movies.json", function (exists) {
   if (!exists) {
     var moviedb = require('./movies/moviesJSON.js');
-    moviedb.run();
+    moviedb.generate();
   }
 });
 
@@ -55,7 +55,7 @@ fs.exists("movies/ratings.dat", function (exists) {
   }
 });
 
-app.get('/', routes.index);
+//app.get('/', routes.index); // go public/index.html directly
 app.get('/users', user.list);
 app.get('/user/:office?/:name', user.read);
 app.get('/movies/:name', movie.getRate);

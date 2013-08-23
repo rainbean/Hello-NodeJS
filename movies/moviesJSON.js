@@ -1,7 +1,7 @@
 /* 
  * Generate Movie Database JSON file
  */
-exports.run = function() {
+exports.generate = function() {
   var fs = require('fs');
   var lineReader = require('line-reader');
   var S = require('string');
