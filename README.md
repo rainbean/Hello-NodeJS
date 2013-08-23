@@ -1,7 +1,7 @@
 Hello-NodeJS
 ============
 
-Install Node.JS
+Install Node.JS (CentOS)
 --------------
 - wget http://mirror01.idc.hinet.net/EPEL/6/i386/epel-release-6-8.noarch.rpm
 - sudo rpm -i epel-release-6-8.noarch.rpm
@@ -19,8 +19,8 @@ ToDo
 - [ ] Present color of rating and recommendation 
 - [ ] Add back rating system
 - [ ] Movie linkage with IMDB
-- [ ] Change entry page to index.html
-- [ ] ~~modify routing table~~
+- [x] Change entry page to index.html
+- [x] ~~modify routing table~~
 
 Future Works
 --------------
@@ -28,8 +28,8 @@ Future Works
 
 Q&A
 --------------
-- Invalid characters in movies name? 
-```
-    Convert movies.dat to UTF-8 format
+- Invalid characters in movies name?
+    Convert movies.dat to UTF-8 format<br>
     $ iconv -f iso-8859-1 -t utf-8 movies-src.dat > movies.dat
-```
+
+
