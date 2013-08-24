@@ -16,8 +16,8 @@ Install & Run project
 
 ToDo
 --------------
-- [ ] Present color of rating and recommendation 
-- [ ] Add back rating system
+- [x] Present color of rating and recommendation 
+- [x] Add back rating system
 - [ ] Movie linkage with IMDB
 - [x] Change entry page to index.html
 - [x] ~~modify routing table~~
