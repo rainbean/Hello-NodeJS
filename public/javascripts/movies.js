@@ -153,19 +153,14 @@ function fnClickDetailClickedCB() {
 function fnFormatDetails( nTr )
 {
   var oData = oTable.fnGetData( nTr );
-  var sOut = 'test';
-  /*
-    '<div class="innerDetails">'+
-      '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-        '<tr><td>Rendering engine:</td><td>'+oData.engine+'</td></tr>'+
-        '<tr><td>Browser:</td><td>'+oData.browser+'</td></tr>'+
-        '<tr><td>Platform:</td><td>'+oData.platform+'</td></tr>'+
-        '<tr><td>Version:</td><td>'+oData.version+'</td></tr>'+
-        '<tr><td>Grade:</td><td>'+oData.grade+'</td></tr>'+
-      '</table>'+
-    '</div>';
-	*/
-  return sOut;
+  var imdbJSON = 'http://www.omdbapi.com/?t=' + oData[1] + '&y=' + oData[2];
+  var sPlaceHolder = "<div id=o" + oData[0] + "><div>loading ...</div><img src='#'></div>";
+  $.getJSON(imdbJSON, function(data) {
+    var x = document.getElementById('o' + oData[0]);
+	$('img', x).attr('src', data.Poster);
+	$('div', x).text(data.Plot);
+  });
+  return sPlaceHolder;
 }
 
 function fnCreateRatingColumnCB(data, type, full) {
@@ -215,9 +210,12 @@ function fnInit() {
   $('#movies td.detail').live('click', fnClickDetailClickedCB);
   
   // Add show all/rated toggle button
+  var filterbar = document.getElementById('movies_filter');
   var btn = document.createElement('button');
   btn.appendChild(document.createTextNode('Show Rated'));
-  document.getElementById('movies_filter').insertBefore(btn);
+  document.createTextNode('Show Rated');
+  filterbar.appendChild(document.createTextNode(' / '));
+  filterbar.appendChild(btn);
   fnToggleRatings(btn);
 
   // get user list

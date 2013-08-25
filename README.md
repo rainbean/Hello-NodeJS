@@ -19,7 +19,7 @@ ToDo
 - [x] Present color of rating and recommendation 
 - [x] Add back rating system
 - [x] Add show all/rated toggle button
-- [ ] Movie linkage with IMDB
+- [x] Fetch movie detail from IMDB
 - [x] Change entry page to index.html
 - [x] ~~modify routing table~~
 
