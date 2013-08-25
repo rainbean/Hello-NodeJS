@@ -6,7 +6,7 @@
 var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
-var movie = require('./routes/movie');
+var db = require('./routes/db');
 var http = require('http');
 var path = require('path');
 var fs = require('fs');
@@ -36,30 +36,31 @@ if ('development' == app.get('env')) {
 // check if movies database generated
 fs.exists("public/movies.json", function (exists) {
   if (!exists) {
-    var moviedb = require('./movies/moviesJSON.js');
+    var moviedb = require('./routes/parser/movie2json.js');
     moviedb.generate();
   }
 });
 
 // check if user database generated
-fs.exists("movies/users.dat", function (exists) {
+fs.exists("db/users.dat", function (exists) {
   if (!exists) {
-    fs.writeFile("movies/users.dat", "");
+    fs.writeFile("db/users.dat", "");
   }
 });
 
 // check if user-rating database generated
-fs.exists("movies/ratings.dat", function (exists) {
+fs.exists("db/ratings.dat", function (exists) {
   if (!exists) {
-    fs.writeFile("movies/ratings.dat", "");
+    fs.writeFile("db/ratings.dat", "");
   }
 });
 
 //app.get('/', routes.index); // go public/index.html directly
 app.get('/users', user.list);
-app.get('/user/:office?/:name', user.read);
-app.get('/movies/:name', movie.getRate);
-app.post('/movies/:name', movie.setRate);
+app.get('/rating/:name', user.getRate);
+app.post('/rating/:name', user.setRate);
+app.get('/db/:name', db.get);
+app.post('/db/:name', db.post);
 app.get('/movies', function(req, res) {
     res.sendfile('public/movies.json');
 });

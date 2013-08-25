@@ -14,6 +14,23 @@ Install & Run project
 - npm install
 - sudo node app
 
+Deploy to Azure
+--------------
+- Follow http://www.windowsazure.com/en-us/develop/nodejs/tutorials/create-a-website-(mac)
+- Create a Windows Azure Web Site
+- Set up a deployment from source control (github)
+- It shall just work
+
+Debug on Azure
+--------------
+- Follow http://www.windowsazure.com/en-us/develop/nodejs/how-to-guides/command-line-tools/
+- npm install azure-cli -g
+- azure account download
+- azure account import .publishsettings file
+- enable application log in iisnode.yml, and re-deploy
+`loggingEnabled: true`
+- azure site log tail site-name
+
 ToDo
 --------------
 - [x] Present color of rating and recommendation 

@@ -6,7 +6,7 @@ exports.generate = function() {
   var lineReader = require('line-reader');
   var S = require('string');
 
-  fs.exists("movies/movies.dat", function (exists) {
+  fs.exists("db/movies.dat", function (exists) {
     if (!exists) {
       console.log('Movies.dat database not found.');
       process.exit(1);
@@ -22,7 +22,7 @@ exports.generate = function() {
   B <- /\((\d+)\)/  match "(1995)"
  Result  <- '1' 'undefined' 'Toy Story ' '1995' '' 'undefined' 'Animation|Children's|Comedy'
  ***/
-  lineReader.eachLine('movies/movies.dat', function(line, last) {
+  lineReader.eachLine('db/movies.dat', function(line, last) {
     //console.log(line);
     var arr = line.split(/::|\((\d+)\)/);
     db.aaData.push([arr[0], S(arr[2]).trim().s, arr[3], arr[6]]);
