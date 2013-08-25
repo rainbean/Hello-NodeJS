@@ -33,6 +33,8 @@ Debug on Azure
 
 ToDo
 --------------
+- [x] Support DB maintainance
+- [x] Azure compatible
 - [x] Present color of rating and recommendation 
 - [x] Add back rating system
 - [x] Add show all/rated toggle button
