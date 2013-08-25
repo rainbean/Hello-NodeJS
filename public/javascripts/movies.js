@@ -1,6 +1,8 @@
 var null_user = {name: '', id: 10000, rating: [], recommendation: []};
 var user = null_user;
 var userlist = [];
+var oTable; // datatable reference
+var openrows = []; // list of detail opened row
 
 function fnFetchUsers() {
   $.getJSON( "/users", function(data) {
@@ -107,7 +109,7 @@ function fnRatingChangedCB() {
 function fnToggleRatings(btn) {
 	var isFilterOn = false;
   
-	/* Custom filtering function which will filter data in column four between two values */
+	/* toogle all rows */
 	$.fn.dataTableExt.afnFiltering.push(
 		function( oSettings, aData, iDataIndex ) {
 			var id = aData[0];
@@ -125,13 +127,45 @@ function fnToggleRatings(btn) {
 		}
 	);
 
-	var oTable = $('#movies').dataTable();
-	
 	btn.addEventListener('click', function() { 
 		isFilterOn = !isFilterOn; 
 		this.innerHTML  = isFilterOn ? 'Show All' : 'Show Rated';
 		oTable.fnDraw(); 
 	}, false);
+}
+
+function fnClickDetailClickedCB() {
+   var nTr = this.parentNode;
+   var i = $.inArray( nTr, openrows );
+    
+   if ( i === -1 ) {
+      $('img', this).attr( 'src', '/DataTables/examples/examples_support/details_close.png' );
+      oTable.fnOpen( nTr, fnFormatDetails(nTr), 'details' );
+      openrows.push( nTr );
+    }
+    else {
+      $('img', this).attr( 'src', '/DataTables/examples/examples_support/details_open.png' );
+      oTable.fnClose( nTr );
+      openrows.splice( i, 1 );
+    }
+}
+ 
+function fnFormatDetails( nTr )
+{
+  var oData = oTable.fnGetData( nTr );
+  var sOut = 'test';
+  /*
+    '<div class="innerDetails">'+
+      '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+        '<tr><td>Rendering engine:</td><td>'+oData.engine+'</td></tr>'+
+        '<tr><td>Browser:</td><td>'+oData.browser+'</td></tr>'+
+        '<tr><td>Platform:</td><td>'+oData.platform+'</td></tr>'+
+        '<tr><td>Version:</td><td>'+oData.version+'</td></tr>'+
+        '<tr><td>Grade:</td><td>'+oData.grade+'</td></tr>'+
+      '</table>'+
+    '</div>';
+	*/
+  return sOut;
 }
 
 function fnCreateRatingColumnCB(data, type, full) {
@@ -145,18 +179,25 @@ function fnCreateRatingColumnCB(data, type, full) {
 }
 
 function fnDocumentReadyCB() {
-  $('#movies').dataTable( {
+  oTable = $('#movies').dataTable( {
     "bProcessing": true,
     "sAjaxSource": '/movies',
     "fnCreatedRow": function( nRow, aData, iDataIndex ) {
-      nRow.id = aData[0]; // add row id 
+      nRow.id = aData[0]; // assign TR.id as movie id 
     },
     "aoColumnDefs": [ 
       { // create rating column
-      "aTargets": [-1],
+        "aTargets": [4],
         "mData": 0, // data refer to MovieID column
         "bSortable": false,
         "mRender": fnCreateRatingColumnCB
+      },
+	  { // create detail column
+        "aTargets": [-1],
+        "mData": null, // data refer to MovieID column
+		"sClass": "detail", // just a pseudo class for reference
+        "bSortable": false,
+        "sDefaultContent": "<img src='/DataTables/examples/examples_support/details_open.png'>"
       },
     ]
   }); 
@@ -171,11 +212,13 @@ function fnInit() {
   document.getElementById('updateBtn').addEventListener('click', fnPostUserData, false);
   document.getElementById('updateBtn').disabled = true;
   
+  $('#movies td.detail').live('click', fnClickDetailClickedCB);
+  
+  // Add show all/rated toggle button
   var btn = document.createElement('button');
   btn.appendChild(document.createTextNode('Show Rated'));
-  fnToggleRatings(btn);
-  
   document.getElementById('movies_filter').insertBefore(btn);
+  fnToggleRatings(btn);
 
   // get user list
   fnFetchUsers();
