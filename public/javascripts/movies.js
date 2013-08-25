@@ -104,6 +104,36 @@ function fnRatingChangedCB() {
   user.rating.push({id: mid, rate: x.value});
 }
 
+function fnToggleRatings(btn) {
+	var isFilterOn = false;
+  
+	/* Custom filtering function which will filter data in column four between two values */
+	$.fn.dataTableExt.afnFiltering.push(
+		function( oSettings, aData, iDataIndex ) {
+			var id = aData[0];
+			if (isFilterOn == false)
+				return true;
+			for (var i in user.rating) {
+				if (id == user.rating[i].id)
+					return true;
+			}
+			for (var i in user.recommendation) {
+				if (id == user.recommendation[i].id)
+					return true;
+			}
+			return false;
+		}
+	);
+
+	var oTable = $('#movies').dataTable();
+	
+	btn.addEventListener('click', function() { 
+		isFilterOn = !isFilterOn; 
+		this.innerHTML  = isFilterOn ? 'Show All' : 'Show Rated';
+		oTable.fnDraw(); 
+	}, false);
+}
+
 function fnCreateRatingColumnCB(data, type, full) {
   var s = [
     '<label><input type=radio name=r', data, ' value=5>5 </label>',
@@ -140,6 +170,12 @@ function fnInit() {
   document.getElementById('username').addEventListener('change', fnUserChangedCB, false);
   document.getElementById('updateBtn').addEventListener('click', fnPostUserData, false);
   document.getElementById('updateBtn').disabled = true;
+  
+  var btn = document.createElement('button');
+  btn.appendChild(document.createTextNode('Show Rated'));
+  fnToggleRatings(btn);
+  
+  document.getElementById('movies_filter').insertBefore(btn);
 
   // get user list
   fnFetchUsers();
