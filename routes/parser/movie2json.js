@@ -25,7 +25,7 @@ exports.generate = function() {
   lineReader.eachLine('db/movies.dat', function(line, last) {
     //console.log(line);
     var arr = line.split(/::|\((\d+)\)/);
-    db.aaData.push([arr[0], S(arr[2]).trim().s, arr[3], arr[6]]);
+    db.aaData.push([arr[0], S(arr[2]).trim().s, arr[3], S(arr[6]).trim().truncate(25).s]);
   }).then(function () {
     fs.writeFile("public/movies.json", JSON.stringify(db));
     console.log('Movie JSON was created successfully!');
