@@ -34,12 +34,8 @@ if ('development' == app.get('env')) {
 }
 
 // check if movies database generated
-fs.exists("public/movies.json", function (exists) {
-  if (!exists) {
-    var moviedb = require('./routes/parser/movie2json.js');
-    moviedb.generate();
-  }
-});
+var moviedb = require('./routes/parser/movie2json.js');
+moviedb.generate();
 
 // check if user database generated
 fs.exists("db/users.dat", function (exists) {
