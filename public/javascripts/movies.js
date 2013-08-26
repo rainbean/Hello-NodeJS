@@ -36,7 +36,7 @@ function fnUserChangedCB() {
     name = x.options[x.selectedIndex].text;
   }
     // fetch new user data
-  $.getJSON("/movies/" + name, function(data) {
+  $.getJSON("/rating/" + name, function(data) {
     user = data; // keep userlist in case
     fnSetRowColor();
   });
@@ -46,7 +46,7 @@ function fnPostUserData() {
   if (!user)
     return;
   event.target.disabled = true;
-  $.post("/movies/" + user.name, user);
+  $.post("/rating/" + user.name, user);
 }
 
 function fnGetRow(id)
