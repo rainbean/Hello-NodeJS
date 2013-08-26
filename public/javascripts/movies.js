@@ -154,11 +154,11 @@ function fnFormatDetails( nTr )
 {
   var oData = oTable.fnGetData( nTr );
   var imdbJSON = 'http://www.omdbapi.com/?t=' + oData[1] + '&y=' + oData[2];
-  var sPlaceHolder = "<div id=o" + oData[0] + "><div>loading ...</div><img src='#'></div>";
+  var sPlaceHolder = "<iframe src='about:blank' scrolling='no' id='o" + oData[0] + "'>loading ...</iframe>";
   $.getJSON(imdbJSON, function(data) {
     var x = document.getElementById('o' + oData[0]);
-	$('img', x).attr('src', data.Poster);
-	$('div', x).text(data.Plot);
+    var s = "<div><div>" + data.Plot + "</div><img src='" + data.Poster + "'></div>";
+    x.contentDocument.body.innerHTML = s;
   });
   return sPlaceHolder;
 }

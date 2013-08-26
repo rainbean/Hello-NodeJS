@@ -33,6 +33,7 @@ Debug on Azure
 
 ToDo
 --------------
+- [x] Use iframe to strip HTTP referer tag, in order to bypass imdb cross-domain check
 - [x] Support DB maintainance
 - [x] Azure compatible
 - [x] Present color of rating and recommendation 
@@ -52,4 +53,5 @@ Q&A
 ```
  $ iconv -f iso-8859-1 -t utf-8 movies-src.dat > movies.dat
 ```
+- **Movie poster not displayed?** IMDB block http referer (http://webstersprodigy.net/2013/02/01/stripping-the-referer-in-a-cross-domain-post-request/)
 
