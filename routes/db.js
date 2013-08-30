@@ -22,12 +22,12 @@ exports.post = function(req, res) {
         is.pipe(fs.createWriteStream(target));
         is.on('end',function() {
           fs.unlinkSync(req.files.file.path);
-          res.send(200, 'database ' + req.params.name + ' updated, size ' + req.files.file.size);
+          res.send(200, 'database ' + req.params.name + ' updated, size ' + req.files.file.size + '.\n\n');
         });
       });
     }
 	else
-      res.send(404, 'not a valid database');
+      res.send(404, 'not a valid database\n');
   });
 }
 
