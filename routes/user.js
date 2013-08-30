@@ -101,7 +101,7 @@ exports.setRate = function(req, res) {
       var arr = line.split("::");
       if (arr[0] != user.id) {
         // remove user's existing ratings from database
-        fs.appendFile("movies/ratings-tmp.dat", line + "\n");
+        fs.appendFile("db/ratings-tmp.dat", line + "\n");
       }
     }).then(function () {
       // add user's existing ratings to database
