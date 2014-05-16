@@ -1,0 +1,3 @@
+[submodule "TrashCan"]
+	path = TrashCan
+	url = https://github.com/rainbean/TrashCan.git
